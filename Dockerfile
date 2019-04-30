@@ -34,6 +34,6 @@ RUN chown -R ${NB_UID} ${HOME}
 RUN chmod -R u+x ${HOME}&& \
     chgrp -R 0 ${HOME}
 USER ${NB_USER}
-WORKDIR ${HOME}
+
 EXPOSE 8888
 CMD ["jupyter", "lab", "--no-browser", "--ip", "0.0.0.0"]
