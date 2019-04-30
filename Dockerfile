@@ -18,22 +18,16 @@ RUN pip install \
   matplotlib==2.2.2 \
   jupyterlab==0.33.4
 
-ENV NB_USER jovyan
-ENV NB_UID 1000
-ENV HOME /home/${NB_USER}
 
-RUN adduser --disabled-password \
-    --gecos "Default user" \
-    --uid ${NB_UID} \
-    ${NB_USER}
-
-# Make sure the contents of our repo are in ${HOME}
-COPY . ${HOME}
 USER root
-RUN chown -R ${NB_UID} ${HOME}
-RUN chmod -R u+x ${HOME}&& \
-    chgrp -R 0 ${HOME}
-USER ${NB_USER}
+ENV APP_ROOT=/opt/app-root
+ENV PATH=${APP_ROOT}/bin:${PATH} HOME=${APP_ROOT}
+COPY . ${APP_ROOT}/bin/
+RUN chmod -R u+x ${APP_ROOT}/bin && \
+    chgrp -R 0 ${APP_ROOT} && \
+    chmod -R g=u ${APP_ROOT} /etc/passwd
+USER 10001
+WORKDIR ${APP_ROOT}
 
 EXPOSE 8888
 CMD ["jupyter", "lab", "--no-browser", "--ip", "0.0.0.0"]
