@@ -10,8 +10,8 @@ RUN apt-get update && apt-get install -y \
 	netpbm=2:10.0-15.3\
     && rm -rf /var/lib/apt/lists/
 
-RUN pip install --upgrade pip==18.0
-RUN pip install \
+RUN pip2 install --upgrade pip==18.0
+RUN pip2 install \
   notebook==5.6.0 \
   ipywidgets==7.3.0 \
   ipykernel==4.8.2 \
