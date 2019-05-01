@@ -127,7 +127,7 @@ RUN pip3 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros
 RUN pip2 install bqplot pyyaml empy
 RUN pip2 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros && jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
-RUN apt-get install ros-kinetic-rosbridge-server
+RUN apt-get install -y ros-kinetic-rosbridge-server
 
 USER root
 ENV APP_ROOT=/opt/app-root
