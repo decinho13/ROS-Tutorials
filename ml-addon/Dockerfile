@@ -3,7 +3,7 @@ USER root
 
 RUN apt-get install -y ros-kinetic-moveit ffmpeg
 RUN apt install -y libjansson-dev nodejs npm nodejs-legacy libboost-dev imagemagick libtinyxml-dev mercurial cmake build-essential
-RUN pip install \
+RUN pip2 install \
   ipywidgets \
   pandas \
   numexpr \
@@ -69,15 +69,15 @@ ENV XDG_CACHE_HOME /home/root/.cache/
 RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot"
 
 #Machine Learning libraries
-RUN pip install setuptools enum34 empy tensorflow keras theano pyspark nltk
-RUN pip install elephas gym keras-rl opencv-python torchvision
+RUN pip2 install setuptools enum34 empy tensorflow keras theano pyspark nltk
+RUN pip2 install elephas gym keras-rl opencv-python torchvision
 
 RUN pip3 install setuptools enum34 empy tensorflow keras theano pyspark nltk
 RUN pip3 install elephas gym keras-rl opencv-python torchvision
 
 #jupyros libraries
-RUN pip install bqplot pyyaml empy
-RUN pip install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros
+RUN pip2 install bqplot pyyaml empy
+RUN pip2 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros
 
 RUN pip3 install bqplot pyyaml empy
 RUN pip3 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros
