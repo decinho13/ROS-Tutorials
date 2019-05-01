@@ -21,7 +21,7 @@ RUN pip install \
   numba \
   bokeh \
   sqlalchemy \
-  hdf5 \
+  h5py \
   vincent \
   beautifulsoup4 \
   protobuf \
@@ -48,7 +48,7 @@ RUN pip install \
     numba \
     bokeh \
     sqlalchemy \
-    hdf5 \
+    h5py \
     vincent \
     beautifulsoup4 \
     protobuf \
