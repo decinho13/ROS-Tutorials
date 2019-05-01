@@ -3,7 +3,7 @@ USER root
 
 RUN apt-get install -y ros-kinetic-moveit ffmpeg
 
-RUN pip -m install \
+RUN pip install \
   ipywidgets \
   pandas \
   numexpr \
@@ -30,7 +30,7 @@ RUN pip -m install \
   jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
   jupyter labextension install jupyterlab_bokeh
 
-  RUN pip3 -m install \
+  RUN pip3 install \
     ipywidgets \
     pandas \
     numexpr \
