@@ -1,4 +1,4 @@
-FROM decinho13/tutorials:latest
+FROM decinho13/ros-notebook:base
 USER root
 #Install python 3 kernel
 RUN sudo apt-get update && sudo apt-get install -y python3.6 \\
