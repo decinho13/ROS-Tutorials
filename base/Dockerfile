@@ -45,32 +45,6 @@ RUN apt-get install -y ros-kinetic-moveit ffmpeg
 #Install Ml applications
 RUN apt-get install -y libjansson-dev npm libboost-dev imagemagick libtinyxml-dev mercurial cmake build-essential curl
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && apt-get install -y nodejs
-RUN pip2 install \
-  ipywidgets \
-  pandas \
-  numexpr \
-  matplotlib \
-  scipy \
-  seaborn \
-  scikit-learn \
-  scikit-image \
-  sympy \
-  cython \
-  patsy \
-  statsmodels \
-  cloudpickle \
-  dill \
-  numba \
-  bokeh \
-  sqlalchemy \
-  h5py \
-  vincent \
-  beautifulsoup4 \
-  protobuf \
-  xlrd &&\
-  jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
-  jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
-  jupyter labextension install jupyterlab_bokeh
 
 RUN pip3 install \
     ipywidgets \
@@ -98,6 +72,35 @@ RUN pip3 install \
     jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
     jupyter labextension install jupyterlab_bokeh
+
+
+RUN pip2 install \
+  ipywidgets \
+  pandas \
+  numexpr \
+  matplotlib \
+  scipy \
+  seaborn \
+  scikit-learn \
+  scikit-image \
+  sympy \
+  cython \
+  patsy \
+  statsmodels \
+  cloudpickle \
+  dill \
+  numba \
+  bokeh \
+  sqlalchemy \
+  h5py \
+  vincent \
+  beautifulsoup4 \
+  protobuf \
+  xlrd &&\
+  jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
+  jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
+  jupyter labextension install jupyterlab_bokeh
+
 
 RUN cd /tmp && \
     git clone https://github.com/PAIR-code/facets.git && \
