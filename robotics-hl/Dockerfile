@@ -34,6 +34,7 @@ RUN mkdir ros_ws && cd ros_ws && mkdir src && cd src && \
     git clone https://github.com/mit-racecar/racecar-simulator.git
 RUN rosdep update
 RUN /bin/bash -c '. /opt/ros/kinetic/setup.bash; cd  ~/ros_ws; catkin_make; source devel/setup.bash; rosdep install openai_ros'
-
+RUN chmod -R u+x ${APP_ROOT} && \
+    chgrp -R 0 ${APP_ROOT}
 USER 10001
 WORKDIR ${APP_ROOT}
