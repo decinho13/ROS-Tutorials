@@ -44,7 +44,7 @@ RUN apt-get install -y ros-kinetic-moveit ffmpeg
 
 #Install Ml applications
 RUN apt-get install -y libjansson-dev npm libboost-dev imagemagick libtinyxml-dev mercurial cmake build-essential curl
-RUN curl -sL https://deb.nodesource.com/setup_8.x | -E bash - && apt-get install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && apt-get install -y nodejs
 RUN pip2 install \
   ipywidgets \
   pandas \
