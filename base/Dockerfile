@@ -39,7 +39,89 @@ RUN apt-get install -y\
     ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control \
     python-rospkg ros-kinetic-teb-local-planner ros-kinetic-ackermann-msgs \
     ros-kinetic-effort-controllers ros-kinetic-joy \
-    ros-kinetic-tf2-sensor-msgs python-rosinstall
+    ros-kinetic-tf2-sensor-msgs python-rosinstall   
+RUN apt-get install -y ros-kinetic-moveit ffmpeg
+
+#Install Ml applications
+RUN apt-get install -y libjansson-dev nodejs npm nodejs-legacy libboost-dev imagemagick libtinyxml-dev mercurial cmake build-essential
+RUN pip2 install \
+  ipywidgets \
+  pandas \
+  numexpr \
+  matplotlib \
+  scipy \
+  seaborn \
+  scikit-learn \
+  scikit-image \
+  sympy \
+  cython \
+  patsy \
+  statsmodels \
+  cloudpickle \
+  dill \
+  numba \
+  bokeh \
+  sqlalchemy \
+  h5py \
+  vincent \
+  beautifulsoup4 \
+  protobuf \
+  xlrd &&\
+  jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
+  jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
+  jupyter labextension install jupyterlab_bokeh
+
+RUN pip3 install \
+    ipywidgets \
+    pandas \
+    numexpr \
+    matplotlib \
+    scipy \
+    seaborn \
+    scikit-learn \
+    scikit-image \
+    sympy \
+    cython \
+    patsy \
+    statsmodels \
+    cloudpickle \
+    dill \
+    numba \
+    bokeh \
+    sqlalchemy \
+    h5py \
+    vincent \
+    beautifulsoup4 \
+    protobuf \
+    xlrd &&\
+    jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
+    jupyter labextension install jupyterlab_bokeh
+
+RUN cd /tmp && \
+    git clone https://github.com/PAIR-code/facets.git && \
+    cd facets && \
+    jupyter nbextension install facets-dist/ --sys-prefix && \
+    cd && \
+    rm -rf /tmp/facets
+
+# Import matplotlib the first time to build the font cache.
+ENV XDG_CACHE_HOME /home/root/.cache/
+RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot"
+
+#Deep Learning libraries
+RUN pip2 install setuptools enum34 empy tensorflow keras theano pyspark nltk
+RUN pip2 install elephas gym keras-rl opencv-python torchvision
+
+RUN pip3 install setuptools enum34 empy tensorflow keras theano pyspark nltk
+RUN pip3 install elephas gym keras-rl opencv-python torchvision
+
+#jupyros libraries
+RUN pip2 install bqplot pyyaml empy
+RUN pip2 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros
+
+RUN pip3 install bqplot pyyaml empy
+RUN pip3 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros
 
 USER root
 ENV APP_ROOT=/opt/app-root
