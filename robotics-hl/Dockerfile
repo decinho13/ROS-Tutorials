@@ -3,13 +3,13 @@ USER root
 #Install python 3 kernel
 RUN apt-get update && apt-get install sudo
 RUN sudo apt-get update && sudo apt-get install -y python3-pip python-pip
-RUN python3 -m pip --version && python3 -m pip install ipykernel &&\
+RUN python3 -m pip --version && python3 -m pip instal --updgrade pip && python3 -m pip install ipykernel &&\
     python3 -m ipykernel install --user
 
 #Install necessary system applicaion
-RUN sudo apt-get install -y \\
+RUN sudo apt-get install -y\\
     wget ca-certificates \\
-    emacs empy git inkspace jed libsm6 libxext-dev \
+    emacs git inkscape jed libsm6 libxext-dev \
     libxrender1 lmodern netcat pandoc python-dev texlive-fonts-extra \
     texlive-fonts-recommended texlive-generic-recommended \
     texlive-latex-base texlive-latex-extra texlive-xetex \
