@@ -18,7 +18,7 @@ RUN pip install \
   matplotlib==2.2.2 \
   jupyterlab==0.33.4
 
-RUN apt-get install -y python3-pip python-pip
+RUN apt-get update && apt-get install -y python3-pip python-pip
 RUN python3 -m pip --version && python3 -m pip install --upgrade pip && python3 -m pip install ipykernel &&\
     python3 -m ipykernel install --user
 
