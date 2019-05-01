@@ -17,7 +17,7 @@ RUN pip -m install \
   patsy \
   statsmodels \
   cloudpickle \
-  dill
+  dill \
   numba \
   bokeh \
   sqlalchemy \
@@ -44,7 +44,7 @@ RUN pip -m install \
     patsy \
     statsmodels \
     cloudpickle \
-    dill
+    dill \
     numba \
     bokeh \
     sqlalchemy \
