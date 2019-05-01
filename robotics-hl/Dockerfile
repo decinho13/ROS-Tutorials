@@ -22,7 +22,7 @@ RUN sudo apt-get install -y\
     ros-kinetic-ros-control ros-kinetic-ros-controllers \
     ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control \
     python-rospkg ros-kinetic-teb-local-planner ros-kinetic-ackermann-msgs \
-    ros-kinetic-effort-controllers ros-kinetic-joy \\
+    ros-kinetic-effort-controllers ros-kinetic-joy \
     ros-kinetic-tf2-sensor-msgs python-rosinstall ros-kinetic-ros-tutorials \
     ros-kinetic-common-tutorials
     
