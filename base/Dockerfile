@@ -62,4 +62,4 @@ USER 10001
 WORKDIR ${APP_ROOT}
 
 EXPOSE 8888
-CMD ["jupyter", "lab", "--no-browser", "--ip", "0.0.0.0"]
+CMD ["jupyter", "lab","--NotebookApp.token=''", "--no-browser", "--ip", "0.0.0.0"]
