@@ -1,6 +1,7 @@
 FROM decinho13/ros-notebook:base
 USER root
 #Install python 3 kernel
+RUN apt-get update && apt-get install sudo
 RUN sudo apt-get update && sudo apt-get install -y python3.6 \\
     python3-pip python-pip
 RUN python3 -m pip --version && python3 -m pip install ipykernel &&\
