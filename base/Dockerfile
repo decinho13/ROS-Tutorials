@@ -117,11 +117,13 @@ RUN pip3 install setuptools enum34 empy tensorflow keras theano pyspark nltk
 RUN pip3 install elephas gym keras-rl opencv-python torchvision
 
 #jupyros libraries
+RUN pip3 install bqplot pyyaml empy
+RUN pip3 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros
+
 RUN pip2 install bqplot pyyaml empy
 RUN pip2 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros
 
-RUN pip3 install bqplot pyyaml empy
-RUN pip3 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros
+
 
 USER root
 ENV APP_ROOT=/opt/app-root
