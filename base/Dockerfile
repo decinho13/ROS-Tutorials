@@ -46,6 +46,7 @@ ENV APP_ROOT=/opt/app-root
 ENV PATH=${APP_ROOT}/bin:${PATH} HOME=${APP_ROOT}
 
 #Add ROS example application and openai_ros package
+COPY . ${APP_ROOT}/bin/
 RUN cd ${APP_ROOT}/bin/ && mkdir ros_ws && cd ros_ws && mkdir src && cd src && \
     git clone https://bitbucket.org/theconstructcore/openai_ros.git &&\
     git clone https://github.com/mit-racecar/racecar.git &&\
@@ -53,7 +54,7 @@ RUN cd ${APP_ROOT}/bin/ && mkdir ros_ws && cd ros_ws && mkdir src && cd src && \
 RUN rosdep update
 RUN /bin/bash -c '. /opt/ros/kinetic/setup.bash; cd  ~/ros_ws; catkin_make; source devel/setup.bash; rosdep install openai_ros'
 
-COPY . ${APP_ROOT}/bin/
+
 RUN chmod -R u+x ${APP_ROOT}/bin && \
     chgrp -R 0 ${APP_ROOT} && \
     chmod -R g=u ${APP_ROOT} /etc/passwd
