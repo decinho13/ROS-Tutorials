@@ -25,6 +25,8 @@ RUN sudo apt-get install -y \\
     ros-kinetic-effort-controllers ros-kinetic-joy \\
     ros-kinetic-tf2-sensor-msgs python-rosinstall ros-kinetic-ros-tutorials \\
     ros-kinetic-common-tutorials
+    
+#Add ROS example application and openai_ros package
 WORKDIR ${APP_ROOT}
 RUN mkdir ros_ws && cd ros_ws && mkdir src && cd src && \
     git clone https://bitbucket.org/theconstructcore/openai_ros.git &&\
