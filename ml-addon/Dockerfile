@@ -2,7 +2,7 @@ FROM decinho13/ros-notebook:robotics-hl
 USER root
 
 RUN apt-get install -y ros-kinetic-moveit ffmpeg
-
+RUN apt install -y libjansson-dev nodejs npm nodejs-legacy libboost-dev imagemagick libtinyxml-dev mercurial cmake build-essential
 RUN pip install \
   ipywidgets \
   pandas \
