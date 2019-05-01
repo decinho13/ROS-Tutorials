@@ -3,7 +3,7 @@ USER root
 #Install python 3 kernel
 RUN apt-get update && apt-get install sudo
 RUN sudo apt-get update && sudo apt-get install -y \\
-    python3-pip python-pip
+    python-pip python2-pip
 RUN python3 -m pip --version && python3 -m pip install ipykernel &&\
     python3 -m ipykernel install --user
 
