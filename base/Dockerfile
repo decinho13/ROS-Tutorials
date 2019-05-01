@@ -115,13 +115,13 @@ RUN pip2 install elephas gym keras-rl opencv-python torchvision
 
 RUN pip3 install setuptools enum34 empy tensorflow keras theano pyspark nltk
 RUN pip3 install elephas gym keras-rl opencv-python torchvision
-
+RUN apt-get install python-rosgraph
 #jupyros libraries
 RUN pip3 install bqplot pyyaml empy
-RUN pip3 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros
+RUN pip3 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros && jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 RUN pip2 install bqplot pyyaml empy
-RUN pip2 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros
+RUN pip2 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros && jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 
 
