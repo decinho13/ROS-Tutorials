@@ -29,7 +29,11 @@ RUN apt-get install -y\
     libxrender1 lmodern netcat pandoc python-dev texlive-fonts-extra \
     texlive-fonts-recommended texlive-generic-recommended \
     texlive-latex-base texlive-latex-extra texlive-xetex \
-    unzip nano
+    unzip nano ssh
+
+RUN pip3 install \
+  notebook==5.6.0 \
+  jupyterlab==0.33.4
 
 #Install ROS applications
 RUN pip install catkin_tools rospkg
