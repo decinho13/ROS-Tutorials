@@ -138,17 +138,28 @@ ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 ENV NVIDIA_REQUIRE_CUDA "cuda>=10.0 brand=tesla,driver>=384,driver<385"
 
-ENV NCCL_VERSION 2.4.2
-RUN apt-get install gnupg-curl
-RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_10.0.130-1_amd64.deb
+# Add NVIDIA package repositories
+# Add HTTPS support for apt-key
+RUN apt-get install -y gnupg-curl
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_10.0.130-1_amd64.deb && dpkg -i cuda-repo-ubuntu1604_10.0.130-1_amd64.deb
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
-RUN apt-get update
-RUN wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/nvidia-machine-learning-repo-ubuntu1604_1.0.0-1_amd64.deb
+RUN apt-get update && wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/nvidia-machine-learning-repo-ubuntu1604_1.0.0-1_amd64.deb
 RUN apt install -y ./nvidia-machine-learning-repo-ubuntu1604_1.0.0-1_amd64.deb
+RUN apt-get update && mkdir /usr/lib/nvidia && apt-get install -y --no-install-recommends nvidia-410
+
+# Install development and runtime libraries (~4GB)
+RUN apt-get install -y --no-install-recommends \
+    cuda-10-0 \
+    libcudnn7=7.4.1.5-1+cuda10.0  \
+    libcudnn7-dev=7.4.1.5-1+cuda10.0
+
+
+# Install TensorRT. Requires that libcudnn7 is installed above.
 RUN apt-get update && \
         apt-get install -y nvinfer-runtime-trt-repo-ubuntu1604-5.0.2-ga-cuda10.0 \
         && apt-get update \
-        && apt-get install -y --no-install-recommends libnvinfer-dev=5.1.2-1+cuda10.1
+        && apt-get install -y --no-install-recommends libnvinfer-dev=5.0.2-1+cuda10.0
+
         
 RUN pip3 install tensorflow-gpu
 RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp35-cp35m-linux_x86_64.whl && pip install torchvision
