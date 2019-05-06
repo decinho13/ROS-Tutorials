@@ -141,7 +141,7 @@ RUN apt-get install gnupg-curl &&\
 
 # Install NVIDIA driver
 # Issue with driver install requires creating /usr/lib/nvidia
-RUN mkdir /usr/lib/nvidia && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends nvidia-418
+#RUN mkdir /usr/lib/nvidia && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends nvidia-418
 # Reboot. Check that GPUs are visible using the command: nvidia-smi
 
 # Install development and runtime libraries (~4GB)
