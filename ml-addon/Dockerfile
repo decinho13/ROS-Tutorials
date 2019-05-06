@@ -141,11 +141,11 @@ RUN apt-get install gnupg-curl &&\
 
 # Install NVIDIA driver
 # Issue with driver install requires creating /usr/lib/nvidia
-RUN mkdir /usr/lib/nvidia && apt-get install -y --no-install-recommends nvidia-418
+RUN mkdir /usr/lib/nvidia && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends nvidia-418
 # Reboot. Check that GPUs are visible using the command: nvidia-smi
 
 # Install development and runtime libraries (~4GB)
-RUN apt-get install -y --no-install-recommends \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     cuda-10-1 \
     libcudnn7=7.4.1.5-1+cuda10.1  \
     libcudnn7-dev=7.4.1.5-1+cuda10.1
