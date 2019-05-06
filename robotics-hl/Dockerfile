@@ -172,6 +172,12 @@ RUN apt-get install -y ros-kinetic-rosbridge-server ros-kinetic-cv-bridge
 
 
 
+RUN pip3 install tensorflow-gpu
+RUN pip2 install tensorflow-gpu
+RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp35-cp35m-linux_x86_64.whl && pip install torchvision
+
+
+
 USER root
 ENV APP_ROOT=/opt/app-root
 ENV PATH=${APP_ROOT}/bin:${PATH} HOME=${APP_ROOT}
