@@ -129,9 +129,30 @@ RUN pip2 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros
 
 RUN apt-get install -y ros-kinetic-rosbridge-server ros-kinetic-cv-bridge
 
+# Add NVIDIA package repositories
+# Add HTTPS support for apt-key
+RUN apt-get install gnupg-curl &&\
+	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_10.1.105-1_amd64.deb &&\ 
+	dpkg -i cuda-repo-ubuntu1604_10.0.130-1_amd64.deb &&\
+	apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub &&\
+	apt-get update &&\
+	wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/nvidia-machine-learning-repo-ubuntu1604_1.0.0-1_amd64.deb &&\
+	apt install ./nvidia-machine-learning-repo-ubuntu1604_1.0.0-1_amd64.deb && apt-get update
 
-#RUN pip3 install tensorflow-gpu
-#RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp35-cp35m-linux_x86_64.whl && pip install torchvision
+# Install NVIDIA driver
+# Issue with driver install requires creating /usr/lib/nvidia
+RUN mkdir /usr/lib/nvidia && apt-get install --no-install-recommends nvidia-418
+# Reboot. Check that GPUs are visible using the command: nvidia-smi
+
+# Install development and runtime libraries (~4GB)
+RUN apt-get install --no-install-recommends \
+    cuda-10-1 \
+    libcudnn7=7.4.1.5-1+cuda10.1  \
+    libcudnn7-dev=7.4.1.5-1+cuda10.1
+
+
+RUN pip3 install tensorflow-gpu
+RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp35-cp35m-linux_x86_64.whl && pip install torchvision
 
 
 USER root
