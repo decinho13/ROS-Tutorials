@@ -31,10 +31,6 @@ RUN apt-get install -y\
     texlive-latex-base texlive-latex-extra texlive-xetex \
     unzip nano ssh
 
-RUN pip3 install \
-  notebook==5.6.0 \
-  jupyterlab==0.33.4
-
 #Install ROS applications
 RUN pip install catkin_tools rospkg
 RUN pip3 install catkin_tools rospkg
@@ -131,7 +127,7 @@ RUN pip3 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros
 RUN pip2 install bqplot pyyaml empy
 RUN pip2 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros && jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
-RUN apt-get install -y ros-kinetic-rosbridge-server
+RUN apt-get install -y ros-kinetic-rosbridge-server ros-kinetic-cv-bridge
 
 
 #RUN pip3 install tensorflow-gpu
