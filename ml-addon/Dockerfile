@@ -147,7 +147,7 @@ RUN mkdir /usr/lib/nvidia && DEBIAN_FRONTEND=noninteractive apt-get install -y -
 # Install development and runtime libraries (~4GB)
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     cuda-10-0 \
-    libcudnn7=7.4.1.5-1+cuda10.10 \
+    libcudnn7=7.4.1.5-1+cuda10.0 \
     libcudnn7-dev=7.4.1.5-1+cuda10.0
 
 
