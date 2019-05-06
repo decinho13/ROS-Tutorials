@@ -150,13 +150,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     libcudnn7=7.4.1.5-1+cuda10.0 \
     libcudnn7-dev=7.4.1.5-1+cuda10.0
     
-RUN apt-get install python3-dev
-RUN pip3 install \
-  notebook==5.6.0 \
-  ipywidgets==7.3.0 \
-  ipykernel==4.8.2 \
-  matplotlib==2.2.2 \
-  jupyterlab==0.33.4
+
 
 RUN pip3 install tensorflow-gpu
 RUN pip2 install tensorflow-gpu
