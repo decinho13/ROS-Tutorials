@@ -132,8 +132,8 @@ RUN apt-get install -y ros-kinetic-rosbridge-server ros-kinetic-cv-bridge
 # Add NVIDIA package repositories
 # Add HTTPS support for apt-key
 RUN apt-get install gnupg-curl &&\
-	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_10.1.105-1_amd64.deb &&\ 
-	dpkg -i cuda-repo-ubuntu1604_10.1.105-1_amd64.deb &&\
+	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_10.0.130-1_amd64.deb &&\ 
+	dpkg -i cuda-repo-ubuntu1604_10.0.130-1_amd64.deb &&\
 	apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub &&\
 	apt-get update &&\
 	wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/nvidia-machine-learning-repo-ubuntu1604_1.0.0-1_amd64.deb &&\
@@ -146,9 +146,9 @@ RUN mkdir /usr/lib/nvidia && DEBIAN_FRONTEND=noninteractive apt-get install -y -
 
 # Install development and runtime libraries (~4GB)
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    cuda-10-1 \
-    libcudnn7=7.4.1.5-1+cuda10.1  \
-    libcudnn7-dev=7.4.1.5-1+cuda10.1
+    cuda-10-0 \
+    libcudnn7=7.4.1.5-1+cuda10.10 \
+    libcudnn7-dev=7.4.1.5-1+cuda10.0
 
 
 RUN pip3 install tensorflow-gpu
