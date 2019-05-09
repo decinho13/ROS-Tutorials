@@ -176,7 +176,7 @@ RUN pip3 install tensorflow-gpu
 RUN pip2 install tensorflow-gpu
 RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp35-cp35m-linux_x86_64.whl && pip install torchvision
 
-
+RUN pip3 install trackpy
 
 USER root
 ENV APP_ROOT=/opt/app-root
