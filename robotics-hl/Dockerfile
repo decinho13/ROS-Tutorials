@@ -184,7 +184,7 @@ ENV PATH=${APP_ROOT}/bin:${PATH} HOME=${APP_ROOT}
 
 #Add ROS example application and openai_ros package
 COPY . ${APP_ROOT}/bin/
-RUN cd ${APP_ROOT}/bin/ && mkdir share && chown 10001:10001 ./share
+RUN cd ${APP_ROOT}/bin/ && mkdir share
 RUN cd ${APP_ROOT}/bin/ && git clone https://github.com/erlerobot/gym-gazebo.git && cd gym-gazebo && pip install -e .
 RUN cd ${APP_ROOT}/bin/ && git clone https://github.com/RoboStack/jupyter-ros.git
 RUN cd ${APP_ROOT}/bin/ && mkdir ros_ws && cd ros_ws && mkdir src && cd src && \
@@ -200,6 +200,10 @@ RUN chmod -R u+x ${APP_ROOT}/bin && \
     chmod -R g=u ${APP_ROOT} /etc/passwd
 USER 10001
 WORKDIR ${APP_ROOT}
+
+
+
+ENTRYPOINT ["${APP_ROOT}/bin/ros_entrypoint.sh"]
 
 EXPOSE 8888
 CMD ["jupyter", "lab","--NotebookApp.token=''", "--no-browser", "--ip", "0.0.0.0"]
