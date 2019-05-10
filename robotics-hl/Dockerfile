@@ -203,7 +203,7 @@ WORKDIR ${APP_ROOT}
 
 
 
-ENTRYPOINT ["/ros_entrypoint.sh"]
+CMD ["sh","./bin/entrypoint.sh"]
 
 EXPOSE 8888
 CMD ["jupyter", "lab","--NotebookApp.token=''", "--no-browser", "--ip", "0.0.0.0"]
