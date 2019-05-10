@@ -194,7 +194,7 @@ RUN cd ${APP_ROOT}/bin/ && mkdir ros_ws && cd ros_ws && mkdir src && cd src && \
 RUN rosdep update
 RUN /bin/bash -c '. /opt/ros/kinetic/setup.bash; cd  ~/bin/ros_ws; catkin_make; source devel/setup.bash; rosdep install openai_ros'
 
-
+RUN /bin/bash -c '/opt/app-root/bin/entrypoint.sh'
 RUN chmod -R u+x ${APP_ROOT}/bin && \
     chgrp -R 0 ${APP_ROOT} && \
     chmod -R g=u ${APP_ROOT} /etc/passwd
@@ -204,6 +204,6 @@ WORKDIR ${APP_ROOT}
 
 
 #CMD ["sh","./bin/entrypoint.sh"]
-CMD ["source","/opt/ros/kinetic/setup.bash"]
+ENTRYPOINT [ "uid_entrypoint" ]
 EXPOSE 8888
 CMD ["jupyter", "lab","--NotebookApp.token=''", "--no-browser", "--ip", "0.0.0.0"]
