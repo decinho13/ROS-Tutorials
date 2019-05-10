@@ -194,10 +194,11 @@ RUN cd ${APP_ROOT}/bin/ && mkdir ros_ws && cd ros_ws && mkdir src && cd src && \
 RUN rosdep update
 RUN /bin/bash -c '. /opt/ros/kinetic/setup.bash; cd  ~/bin/ros_ws; catkin_make; source devel/setup.bash; rosdep install openai_ros'
 
-RUN /bin/bash -c '/opt/app-root/bin/entrypoint.sh'
+
 RUN chmod -R u+x ${APP_ROOT}/bin && \
     chgrp -R 0 ${APP_ROOT} && \
     chmod -R g=u ${APP_ROOT} /etc/passwd
+RUN /bin/bash -c '/opt/app-root/bin/entrypoint.sh'
 USER 10001
 WORKDIR ${APP_ROOT}
 
