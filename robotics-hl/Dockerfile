@@ -204,6 +204,6 @@ WORKDIR ${APP_ROOT}
 
 
 #CMD ["sh","./bin/entrypoint.sh"]
-ENTRYPOINT ["entrypoint.sh"]
+CMD ["source","/opt/ros/kinetic/setup.bash"]
 EXPOSE 8888
 CMD ["jupyter", "lab","--NotebookApp.token=''", "--no-browser", "--ip", "0.0.0.0"]
