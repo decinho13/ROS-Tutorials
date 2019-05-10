@@ -204,6 +204,6 @@ WORKDIR ${APP_ROOT}
 
 
 #CMD ["sh","./bin/entrypoint.sh"]
-ENTRYPOINT ["${APP_ROOT}/bin/entrypoint.sh"]
+ENTRYPOINT ["./bin/entrypoint.sh"]
 EXPOSE 8888
 CMD ["jupyter", "lab","--NotebookApp.token=''", "--no-browser", "--ip", "0.0.0.0"]
