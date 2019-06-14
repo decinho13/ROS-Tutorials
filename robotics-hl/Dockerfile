@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -q -y \
     libxrender1 lmodern netcat pandoc python-dev texlive-fonts-extra \
     texlive-fonts-recommended texlive-generic-recommended \
     texlive-latex-base texlive-latex-extra texlive-xetex \
-    unzip nano ssh \
+    unzip nano ssh libjansson-dev npm libboost-dev imagemagick libtinyxml-dev mercurial cmake build-essential curl\
     && rm -rf /var/lib/apt/lists/*
     
 # ------------------------------------------------- Install ROS ----------------------------------------------
@@ -60,10 +60,10 @@ RUN apt-get install -y\
     python-rospkg ros-kinetic-teb-local-planner ros-kinetic-ackermann-msgs \
     ros-kinetic-effort-controllers ros-kinetic-joy \
     ros-kinetic-tf2-sensor-msgs python-rosinstall \  
-    ros-kinetic-moveit ffmpeg python-rosgraph
+    ros-kinetic-moveit ffmpeg python-rosgraph ros-kinetic-rosbridge-server ros-kinetic-cv-bridge
 
 # ------------------------------------ Install Ml applications dependencies --------------------------------------------
-RUN apt-get install -y libjansson-dev npm libboost-dev imagemagick libtinyxml-dev mercurial cmake build-essential curl
+RUN apt-get install -y 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && apt-get install -y nodejs
 
 # ------------------------------------- Install Jupyter Notebook and Lab -----------------------------------------------
@@ -167,14 +167,6 @@ RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp35-c
 
 RUN pip3 install trackpy
 
-# --------------------------------- Install jupyros libraries and other ROS interfaces
-RUN pip3 install bqplot pyyaml empy
-RUN pip3 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros && jupyter nbextension enable --py --sys-prefix widgetsnbextension
-
-RUN pip2 install bqplot pyyaml empy
-RUN pip2 install jupyros && jupyter nbextension enable --py --sys-prefix jupyros && jupyter labextension install jupyter-ros && jupyter nbextension enable --py --sys-prefix widgetsnbextension
-
-RUN apt-get install -y ros-kinetic-rosbridge-server ros-kinetic-cv-bridge
 
 # ------------------------------- Add ROS example application and openai_ros package ------------------------------------------
 USER root
@@ -186,9 +178,7 @@ RUN cd ${APP_ROOT}/bin/ && mkdir share
 RUN cd ${APP_ROOT}/bin/ && git clone https://github.com/erlerobot/gym-gazebo.git && cd gym-gazebo && pip install -e .
 RUN cd ${APP_ROOT}/bin/ && git clone https://github.com/RoboStack/jupyter-ros.git
 RUN cd ${APP_ROOT}/bin/ && mkdir ros_ws && cd ros_ws && mkdir src && cd src && \
-    git clone https://bitbucket.org/theconstructcore/openai_ros.git &&\
-    git clone https://github.com/mit-racecar/racecar.git &&\
-    git clone https://github.com/mit-racecar/racecar-simulator.git
+    git clone https://bitbucket.org/theconstructcore/openai_ros.git
 RUN rosdep update
 RUN /bin/bash -c '. /opt/ros/kinetic/setup.bash; cd  ~/bin/ros_ws; catkin_make; source devel/setup.bash; rosdep install openai_ros'
 
