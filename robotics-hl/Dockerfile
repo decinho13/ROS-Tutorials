@@ -54,14 +54,19 @@ RUN apt-get update && apt-get install -y \
 #Install ROS applications
 RUN pip install catkin_tools rospkg
 RUN pip3 install catkin_tools rospkg
-RUN apt-get install -y\
-    ros-kinetic-ros-control ros-kinetic-ros-controllers \
-    ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control \
-    python-rospkg ros-kinetic-teb-local-planner ros-kinetic-ackermann-msgs \
-    ros-kinetic-effort-controllers ros-kinetic-joy \
-    ros-kinetic-tf2-sensor-msgs python-rosinstall \  
-    ros-kinetic-moveit ffmpeg python-rosgraph ros-kinetic-rosbridge-server ros-kinetic-cv-bridge
-
+RUN apt-get install -y ros-kinetic-moveit \
+	ros-kinetic-teleop-twist-keyboard \
+	ros-kinetic-map-server \
+	ros-kinetic-fake-localization \
+	ros-kinetic-ros-control ros-kinetic-ros-controllers \
+    	python-rospkg ros-kinetic-teb-local-planner ros-kinetic-ackermann-msgs \
+    	ros-kinetic-effort-controllers ros-kinetic-joy \
+    	ros-kinetic-tf2-sensor-msgs python-rosinstall ros-kinetic-geometry-tutorials ros-kinetic-rosbash \
+	ros-kinetic-rqt-tf-tree ros-kinetic-cv-bridge ros-kinetic-image-geometry \
+	ros-kinetic-rosserial-arduino ros-kinetic-rosserial-embeddedlinux ros-kinetic-rosserial-windows \
+	ros-kinetic-rosserial-server ros-kinetic-rosserial-python \
+	ros-kinetic-openni-camera ros-kinetic-joystick-drivers ros-kinetic-navigation ros-kinetic-industrial-core
+	
 # ------------------------------------ Install Ml applications dependencies --------------------------------------------
 RUN apt-get install -y 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && apt-get install -y nodejs
@@ -155,10 +160,10 @@ RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot"
 # -------------------------------------- Install Deep Learning libraries ------------------------------------------------
 # --------------------------------------- for Python 3 and Pyhton 2 -----------------------------------------------------
 
-RUN pip2 install setuptools enum34 empy tensorflow keras theano pyspark nltk
+RUN pip2 install setuptools enum34 empy tensorflow keras pyspark nltk
 RUN pip2 install elephas gym keras-rl opencv-python torchvision
 
-RUN pip3 install setuptools enum34 empy tensorflow keras theano pyspark nltk
+RUN pip3 install setuptools enum34 empy tensorflow keras pyspark nltk
 RUN pip3 install elephas gym keras-rl opencv-python torchvision
 
 RUN pip3 install tensorflow-gpu
@@ -167,6 +172,11 @@ RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp35-c
 
 RUN pip3 install trackpy
 
+RUN pip2 install --upgrade azureml-sdk[notebooks,explain,automl]
+RUN pip3 install --upgrade azureml-sdk[notebooks,explain,automl]
+
+RUN pip2 install azure-cognitiveservices-vision-computervision
+RUN pip3 install azure-cognitiveservices-vision-computervision
 
 # ------------------------------- Add ROS example application and openai_ros package ------------------------------------------
 USER root
@@ -174,6 +184,37 @@ ENV APP_ROOT=/opt/app-root
 ENV PATH=${APP_ROOT}/bin:${PATH} HOME=${APP_ROOT}
 
 COPY . ${APP_ROOT}/bin/
+# Install frugally_deep
+RUN cd ${APP_ROOT}/bin/ && \
+	git clone https://github.com/Dobiasd/FunctionalPlus && \
+	cd FunctionalPlus && \
+	mkdir -p build && cd build && \
+	cmake .. && \
+	make && sudo make install && \
+	cd ../..
+RUN cd ${APP_ROOT}/bin/ && \
+	hg clone https://bitbucket.org/eigen/eigen/  && \
+	cd eigen  && \
+	mkdir -p build && cd build  && \
+	cmake ..  && \
+	make && sudo make install  && \
+	ln -s /usr/local/include/eigen3/Eigen /usr/local/include/Eigen  && \
+	cd ../..
+RUN cd ${APP_ROOT}/bin/ && \
+	git clone https://github.com/nlohmann/json  && \
+	cd json  && \
+	git checkout v3.1.2  && \
+	mkdir -p build && cd build  && \
+	cmake ..  && \
+	make && sudo make install  && \
+	cd ../..
+RUN cd ${APP_ROOT}/bin/ && \
+	git clone https://github.com/Dobiasd/frugally-deep && \
+	cd frugally-deep && \
+	mkdir -p build && cd build  && \
+	cmake .. && \
+	make && sudo make install && \
+	cd ../..
 RUN cd ${APP_ROOT}/bin/ && mkdir share
 RUN cd ${APP_ROOT}/bin/ && git clone https://github.com/erlerobot/gym-gazebo.git && cd gym-gazebo && pip install -e .
 RUN cd ${APP_ROOT}/bin/ && git clone https://github.com/RoboStack/jupyter-ros.git
