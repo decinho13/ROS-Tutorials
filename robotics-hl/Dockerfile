@@ -10,7 +10,10 @@ RUN apt-get update && apt-get install -q -y \
     libxrender1 lmodern netcat pandoc python-dev texlive-fonts-extra \
     texlive-fonts-recommended texlive-generic-recommended \
     texlive-latex-base texlive-latex-extra texlive-xetex \
-    unzip nano ssh libjansson-dev npm libboost-dev imagemagick libtinyxml-dev mercurial cmake build-essential curl\
+    libgoogle-glog-dev libgtest-dev libiomp-dev libleveldb-dev \
+    liblmdb-dev libopencv-dev libopenmpi-dev libsnappy-dev libprotobuf-dev \
+    openmpi-bin openmpi-doc protobuf-compiler libgflags-dev \
+    unzip nano ssh libjansson-dev npm libboost-dev imagemagick libtinyxml-dev mercurial cmake build-essential curl \
     && rm -rf /var/lib/apt/lists/*
     
 # ------------------------------------------------- Install ROS ----------------------------------------------
@@ -102,6 +105,9 @@ RUN pip3 install \
     sympy \
     cython \
     patsy \
+    future \
+    typing \
+    hypothesis
     statsmodels \
     cloudpickle \
     dill \
@@ -168,7 +174,12 @@ RUN pip3 install elephas gym keras-rl opencv-python torchvision
 
 RUN pip3 install tensorflow-gpu
 RUN pip2 install tensorflow-gpu
-RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp35-cp35m-linux_x86_64.whl && pip install torchvision
+
+RUN pip install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp27-cp27mu-linux_x86_64.whl
+RUN pip install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp27-cp27mu-linux_x86_64.whl
+
+RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-win_amd64.whl
+RUN pip3 install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-win_amd64.whl
 
 RUN pip3 install trackpy
 
@@ -217,6 +228,8 @@ RUN cd ${APP_ROOT}/bin/ && \
 	cd ../..
 RUN cd ${APP_ROOT}/bin/ && mkdir share
 RUN cd ${APP_ROOT}/bin/ && git clone https://github.com/erlerobot/gym-gazebo.git && cd gym-gazebo && pip install -e .
+RUN cd ${APP_ROOT}/bin/ && git clone https://github.com/pytorch/pytorch.git && cd pytorch && \
+	git submodule update --init --recursive && python setup.py install
 RUN cd ${APP_ROOT}/bin/ && git clone https://github.com/RoboStack/jupyter-ros.git
 RUN cd ${APP_ROOT}/bin/ && mkdir ros_ws && cd ros_ws && mkdir src && cd src && \
     git clone https://bitbucket.org/theconstructcore/openai_ros.git
